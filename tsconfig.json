@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noResolve": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "rootDir": "src",
+    "sourceMap": true,
+    "sourceRoot": "src",
+    "strictNullChecks": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "target": "es2015",
+    "types": ["node", "mocha", "reflect-metadata", "lodash"]
+  }
+}
