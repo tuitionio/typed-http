@@ -16,13 +16,13 @@ export interface HttpClientRequest<T, C> {
 }
 export interface IHttpClientRequest extends HttpClientRequest<any, any> {
 }
-export declare abstract class HttpClient {
+export declare class HttpClient {
     protected headers: Headers;
     protected baseUrl: string;
     protected createRequest(method: HttpMethod, uri: string, parameters?: any): IHttpClientRequest;
-    protected execute<T>(request: IHttpClientRequest): Promise<T>;
-    protected delete(uri: string): IHttpClientRequest;
-    protected get(uri: string): IHttpClientRequest;
-    protected post(uri: string, parameters?: any): IHttpClientRequest;
-    protected put(uri: string, parameters?: any): IHttpClientRequest;
+    execute<T>(request: IHttpClientRequest): Promise<T>;
+    delete(uri: string): IHttpClientRequest;
+    get(uri: string): IHttpClientRequest;
+    post(uri: string, parameters?: any): IHttpClientRequest;
+    put(uri: string, parameters?: any): IHttpClientRequest;
 }

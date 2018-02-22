@@ -25,7 +25,7 @@ export interface IHttpClientRequest extends HttpClientRequest<any, any> {
 }
 
 @injectable()
-export abstract class HttpClient {
+export class HttpClient {
     protected headers: Headers;
     protected baseUrl: string;
 
@@ -55,7 +55,7 @@ export abstract class HttpClient {
         } as any;
     }
 
-    protected async execute<T>(request: IHttpClientRequest): Promise<T> {
+    public async execute<T>(request: IHttpClientRequest): Promise<T> {
         request.settings.transform = (body, response): IHttpClientResponse => {
             return {
                 result: response,
@@ -69,19 +69,19 @@ export abstract class HttpClient {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected delete(uri: string): IHttpClientRequest {
+    public delete(uri: string): IHttpClientRequest {
         return this.createRequest(HttpMethod.Delete, uri);
     }
 
-    protected get(uri: string): IHttpClientRequest {
+    public get(uri: string): IHttpClientRequest {
         return this.createRequest(HttpMethod.Get, uri);
     }
 
-    protected post(uri: string, parameters?: any): IHttpClientRequest {
+    public post(uri: string, parameters?: any): IHttpClientRequest {
         return this.createRequest(HttpMethod.Post, uri, parameters);
     }
 
-    protected put(uri: string, parameters?: any): IHttpClientRequest {
+    public put(uri: string, parameters?: any): IHttpClientRequest {
         return this.createRequest(HttpMethod.Put, uri, parameters);
     }
 }
