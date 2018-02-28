@@ -20,7 +20,7 @@ export declare class ApiClient {
     protected headers: Headers;
     protected baseUrl: string;
     protected createRequest(method: HttpMethod, uri: string, parameters?: any): IHttpClientRequest;
-    execute<T>(request: IHttpClientRequest): Promise<T>;
+    protected execute<T>(request: IHttpClientRequest): Promise<T>;
     protected delete(uri: string): IHttpClientRequest;
     protected get(uri: string): IHttpClientRequest;
     protected post(uri: string, parameters?: any): IHttpClientRequest;

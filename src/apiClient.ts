@@ -55,7 +55,7 @@ export class ApiClient {
         } as any;
     }
 
-    public async execute<T>(request: IHttpClientRequest): Promise<T> {
+    protected async execute<T>(request: IHttpClientRequest): Promise<T> {
         request.settings.transform = (body, response): IHttpClientResponse => {
             return {
                 result: response,
