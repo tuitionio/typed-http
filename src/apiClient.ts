@@ -77,6 +77,10 @@ export class ApiClient {
         return this.createRequest(HttpMethod.Get, uri);
     }
 
+    protected patch(uri: string, parameters?: any): IHttpClientRequest {
+        return this.createRequest(HttpMethod.Patch, uri, parameters);
+    }
+
     protected post(uri: string, parameters?: any): IHttpClientRequest {
         return this.createRequest(HttpMethod.Post, uri, parameters);
     }

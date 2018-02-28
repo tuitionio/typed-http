@@ -23,6 +23,7 @@ export declare class ApiClient {
     protected execute<T>(request: IHttpClientRequest): Promise<T>;
     protected delete(uri: string): IHttpClientRequest;
     protected get(uri: string): IHttpClientRequest;
+    protected patch(uri: string, parameters?: any): IHttpClientRequest;
     protected post(uri: string, parameters?: any): IHttpClientRequest;
     protected put(uri: string, parameters?: any): IHttpClientRequest;
 }
