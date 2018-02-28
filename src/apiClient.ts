@@ -25,7 +25,7 @@ export interface IHttpClientRequest extends HttpClientRequest<any, any> {
 }
 
 @injectable()
-export class HttpClient {
+export class ApiClient {
     protected headers: Headers;
     protected baseUrl: string;
 
@@ -69,19 +69,19 @@ export class HttpClient {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public delete(uri: string): IHttpClientRequest {
+    protected delete(uri: string): IHttpClientRequest {
         return this.createRequest(HttpMethod.Delete, uri);
     }
 
-    public get(uri: string): IHttpClientRequest {
+    protected get(uri: string): IHttpClientRequest {
         return this.createRequest(HttpMethod.Get, uri);
     }
 
-    public post(uri: string, parameters?: any): IHttpClientRequest {
+    protected post(uri: string, parameters?: any): IHttpClientRequest {
         return this.createRequest(HttpMethod.Post, uri, parameters);
     }
 
-    public put(uri: string, parameters?: any): IHttpClientRequest {
+    protected put(uri: string, parameters?: any): IHttpClientRequest {
         return this.createRequest(HttpMethod.Put, uri, parameters);
     }
 }
