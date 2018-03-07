@@ -1,2 +1,2 @@
 # typed-http
-HTTP Specifications &amp; Client for Node.js
+HTTP Client &amp; Specifications for Node.js / Typescript
