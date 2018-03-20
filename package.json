@@ -1,6 +1,6 @@
 {
     "name": "@tuitionio/typed-http",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "author": "Tuition.io Engineering",
     "license": "MIT",
     "main": "lib/index.js",

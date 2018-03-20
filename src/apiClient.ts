@@ -65,7 +65,13 @@ export class ApiClient {
 
         const response: IHttpClientResponse = await AsyncRequest(request.settings)
             .then(response => response)
-            .catch(error => error.response);
+            .catch(error => {
+                if (error.response) {
+                    return error.response;
+                }
+
+                throw error;
+            });
         return _.isFunction(request.handler) ? request.handler(request, response) : response.content;
     }
 
