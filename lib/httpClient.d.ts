@@ -1,8 +1,8 @@
-import { ApiClient, IHttpClientRequest } from "./apiClient";
+import { ApiClient, HttpClientRequest } from "./apiClient";
 export declare class HttpClient extends ApiClient {
-    execute<T>(request: IHttpClientRequest): Promise<T>;
-    delete(uri: string): IHttpClientRequest;
-    get(uri: string): IHttpClientRequest;
-    post(uri: string, parameters?: any): IHttpClientRequest;
-    put(uri: string, parameters?: any): IHttpClientRequest;
+    execute<T>(request: HttpClientRequest): Promise<T>;
+    delete(uri: string): HttpClientRequest;
+    get(uri: string): HttpClientRequest;
+    post(uri: string, parameters?: any): HttpClientRequest;
+    put(uri: string, parameters?: any): HttpClientRequest;
 }
