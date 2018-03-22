@@ -6,22 +6,10 @@ import * as AsyncRequest from "request-promise";
 import { ContentType } from "./contentType";
 import { HttpHeader } from "./httpHeader";
 import { HttpMethod } from "./httpMethod";
+import "reflect-metadata";
 
-export interface HttpClientResponse<T> {
-    result: IncomingMessage;
-    content: T;
-}
-
-export interface IHttpClientResponse extends HttpClientResponse<any> {
-}
-
-export interface HttpClientRequest<T, C> {
+export interface HttpClientRequest {
     settings: AsyncRequest.Options;
-    handler?: (request: HttpClientRequest<T, C>, response: HttpClientResponse<T>) => Promise<any>;
-    context?: C;
-}
-
-export interface IHttpClientRequest extends HttpClientRequest<any, any> {
 }
 
 @injectable()
@@ -29,7 +17,7 @@ export class ApiClient {
     protected headers: Headers;
     protected baseUrl: string;
 
-    protected createRequest(method: HttpMethod, uri: string, parameters?: any): IHttpClientRequest {
+    protected createRequest(method: HttpMethod, uri: string, parameters?: any): HttpClientRequest {
         const requestHeaders: Headers = {};
         requestHeaders[HttpHeader.Accept] = ContentType.ApplicationJson;
 
@@ -50,50 +38,61 @@ export class ApiClient {
                 uri,
                 headers: { ...requestHeaders, ...this.headers },
                 body: parameters,
-                json: requestHeaders[HttpHeader.ContentType] === ContentType.ApplicationJson
+                json: requestHeaders[HttpHeader.Accept] === ContentType.ApplicationJson
             }
         } as any;
     }
 
-    protected async execute<T>(request: IHttpClientRequest): Promise<T> {
-        request.settings.transform = (body, response): IHttpClientResponse => {
-            return {
-                result: response,
-                content: body
-            };
+    protected responseHandler(request: HttpClientRequest, response: IncomingMessage, content: any): any {
+        return content;
+    }
+
+    protected async exceptionHandler(exception: any): Promise<void> {
+        throw exception;
+    }
+
+    protected async execute<T>(request: HttpClientRequest): Promise<T> {
+        let response = undefined, content = undefined;
+
+        request.settings.transform = (body, res) => {
+            response = res;
+            content = body;
         };
 
-        const response: IHttpClientResponse = await AsyncRequest(request.settings)
-            .then(response => response)
-            .catch(error => {
-                if (error.statusCode) {
-                    return error;
-                }
+        try {
+            await AsyncRequest(request.settings);
+        }
+        catch (ex) {
+            if (ex.statusCode) {
+                response = ex;
+            }
+            else {
+                await this.exceptionHandler(ex);
+            }
+        }
 
-                throw error;
-            });
-        return _.isFunction(request.handler) ? request.handler(request, response) : response.content;
+        return this.responseHandler(request, response, content);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected delete(uri: string): IHttpClientRequest {
+    protected delete(uri: string): HttpClientRequest {
         return this.createRequest(HttpMethod.Delete, uri);
     }
 
-    protected get(uri: string): IHttpClientRequest {
+    protected get(uri: string): HttpClientRequest {
         return this.createRequest(HttpMethod.Get, uri);
     }
 
-    protected patch(uri: string, parameters?: any): IHttpClientRequest {
+    protected patch(uri: string, parameters?: any): HttpClientRequest {
         return this.createRequest(HttpMethod.Patch, uri, parameters);
     }
 
-    protected post(uri: string, parameters?: any): IHttpClientRequest {
+    protected post(uri: string, parameters?: any): HttpClientRequest {
         return this.createRequest(HttpMethod.Post, uri, parameters);
     }
 
-    protected put(uri: string, parameters?: any): IHttpClientRequest {
+    protected put(uri: string, parameters?: any): HttpClientRequest {
         return this.createRequest(HttpMethod.Put, uri, parameters);
     }
 }
