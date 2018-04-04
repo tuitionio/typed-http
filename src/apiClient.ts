@@ -13,7 +13,7 @@ export interface HttpClientRequest {
 }
 
 @injectable()
-export class ApiClient {
+export abstract class ApiClient {
     protected headers: Headers;
     protected baseUrl: string;
 
@@ -43,9 +43,7 @@ export class ApiClient {
         } as any;
     }
 
-    protected responseHandler(request: HttpClientRequest, response: IncomingMessage, content: any): any {
-        return content;
-    }
+    protected abstract responseHandler(request: HttpClientRequest, response: IncomingMessage, content: any): any;
 
     protected async exceptionHandler(exception: any): Promise<void> {
         throw exception;
