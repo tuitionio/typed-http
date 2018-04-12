@@ -7,6 +7,11 @@ export enum HttpStatusCode {
     ResetContent = 205,
     PartialContent = 206,
 
+    RedirectPermanent = 301,
+    RedirectFound = 302,
+    RedirectOther = 303,
+    RedirectTemporary = 307,
+
     BadRequest = 400,
     Unauthorized = 401,
     PaymentRequired = 402,

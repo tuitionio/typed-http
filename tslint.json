@@ -1,6 +1,6 @@
 {
   "extends": "tslint:latest",
-  "rulesDirectory": "./scripts/tslint/.obj",
+  "rulesDirectory": "./scripts/tslint/",
   "rules": {
     "array-type": [true, "array"],
     "ban-types": {
